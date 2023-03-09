@@ -61,4 +61,13 @@ export class HttpResponse {
             data
         })
     }
+
+    Custom(res: Response, data: any){
+        if(data.code === "23505"){
+            this.BadRequest(res, data.detail)
+        }
+        else{
+            this.BadRequest(res, data.message)
+        }
+    }
 }
