@@ -15,7 +15,12 @@ export class PersonService extends BaseService<PersonEntity>{
 
     async findAll(): Promise<PersonEntity[] | undefined> {
         try {
-            return (await this.execRepository).find()
+            return (await this.execRepository)
+                .createQueryBuilder("person")
+                .leftJoin("person.role", "role")
+                .leftJoin("person.document_type","document")
+                .select(["person", "role.name", "document.name"])
+                .getMany()
         } catch (error:any) {
             throw new Error(error)
         }

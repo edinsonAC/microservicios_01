@@ -19,4 +19,13 @@ export class DocumentController{
             this.httpResponse.Error(res, error);
         }
     }
+    
+    async create(req: Request, res: Response) {
+        try {
+            await this.documentService.create(req.body);
+            this.httpResponse.Created(res, "document type created succesfully")
+        } catch (error) {
+            this.httpResponse.Custom(res, error);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import { Contains, IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID, Length } from "class-validator"
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID, Length } from "class-validator"
 
 
 export class PersonDTO {
@@ -6,12 +6,11 @@ export class PersonDTO {
     @IsEmail()
     @IsNotEmpty()
     @IsString()
-    @Contains("@ufps.edu.co")
-    institutional_mail!: string
+    email!: string
     
     @IsString()
     @IsNotEmpty()
-    names!: string
+    name!: string
 
     @IsString()
     @IsNotEmpty()
