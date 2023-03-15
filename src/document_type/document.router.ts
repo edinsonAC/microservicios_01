@@ -10,7 +10,13 @@ export class DocumentRouter extends BaseRouter<DocumentController, DocumentMiddl
 
     routes(): void {
         this.router.get(
-            "/",
+            "/documents",
             (req, res) => this.controller.findAll(req, res))
+
+        this.router.post(
+            "/document/create",
+            (req, res, next) => this.middleware.validateDocument(req, res, next),
+            (req, res) => this.controller.create(req, res)
+        )
     }
 }
