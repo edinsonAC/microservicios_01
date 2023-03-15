@@ -14,6 +14,8 @@ export class BaseService<T extends BaseEntity> extends ConfigServer{
 
     async initRepository<T extends ObjectLiteral>(entity:EntityTarget<T>):Promise<Repository<T>>{
         const getConn = await this.db()
+        console.log("ver ==================", getConn);
+        
         return getConn!.getRepository(entity)
     }
 }
