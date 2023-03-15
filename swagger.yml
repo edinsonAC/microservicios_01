@@ -1,9 +1,86 @@
 paths:
-  /users:
+  /persons:
     get:
       tags: 
-        - User
-      summary: "Get all users"
+        - Person
+      summary: "Get all persons"
+      
+      responses:
+        200:
+          description: "OK"
+          content: 
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  statusMsg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      names:
+                        type: string
+                      lastname:
+                        type: string
+                      institutional_mail:
+                        type: string
+                      code:
+                        type: string
+                      num_document:
+                        type: string
+                      img:  
+                        type: string
+                      role:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      document_type:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+
+
+  /person/create:
+    post:
+      summary: Create a new person
+      tags:
+        - Person
+      requestBody:
+        description: Person object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonInput'
+      responses:
+        '201':
+          description: Person created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  statusMsg:
+                    type: string
+                  data:
+                    type: string
+        '400':
+          description: Invalid input
+
+
+  /role:
+    get:
+      tags: 
+        - Role
+      summary: "Get all roles"
       
       responses:
         200:
@@ -24,73 +101,137 @@ paths:
                         type: string
                       name:
                         type: string
-                      lastname:
-                        type: string
-                      username:
-                        type: string
-                      email:
-                        type: string
-                      password:
-                        type: string
-                      city: 
-                        type: string
-                      province:
-                        type: string
-  /user/{id}:
+                      state:
+                        type: boolean
+
+  
+  /role/create:
+    post:
+      summary: Create a new role
+      tags:
+        - Role
+      requestBody:
+        description: Role object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocAndRoleInput'
+      responses:
+        '201':
+          description: Role created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  statusMsg:
+                    type: string
+                  data:
+                    type: string
+        '400':
+          description: Invalid input
+
+
+  /documents:
     get:
       tags: 
-        - User
-      summary: "Obtener un usuario por ID"
-      parameters:
-        - name: "id"
-          in: "path"
-          required: true
-          type: "integer"
+        - Document
+      summary: "Get all Documents"
+      
       responses:
         200:
           description: "OK"
-  /createUser:
+          content: 
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  statusMsg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      state:
+                        type: boolean
+
+  
+  /document/create:
     post:
-      tags: 
-        - User
-      summary: "Crear un usuario"
-      parameters:
-        - name: "user"
-          in: "body"
-          required: true
-          schema:
-            $ref: "#/definitions/User"
+      summary: Create a new document type
+      tags:
+        - Document
+      requestBody:
+        description: Document type object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocAndRoleInput'
       responses:
-        201:
-          description: "Creado"
-  /deleteUser/{id}:
-    delete:
-      tags: 
-        - User
-      summary: "Borrar un usuario por ID"
-      parameters:
-        - name: "id"
-          in: "path"
-          required: true
-          type: "integer"
-      responses:
-        204:
-          description: "Eliminado"
-  /updateUser/{id}:
-    patch:
-      tags: 
-        - User
-      summary: "Actualizar un usuario por ID"
-      parameters:
-        - name: "id"
-          in: "path"
-          required: true
-          type: "integer"
-        - name: "user"
-          in: "body"
-          required: true
-          schema:
-            $ref: "#/definitions/User"
-      responses:
-        200:
-          description: "Actualizado"
+        '201':
+          description: Document created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  statusMsg:
+                    type: string
+                  data:
+                    type: string
+        '400':
+          description: Invalid input
+
+
+components:
+  schemas:
+    PersonInput:
+      type: object
+      required:
+        - name
+        - lastnames
+        - code
+        - email
+        - document_id
+        - num_document
+        - role_id
+      properties:
+        name:
+          type: string
+          description: The person's name
+        lastnames:
+          type: string
+          description: The person's last names
+        code:
+          type: string
+          description: The person's code
+        email:
+          type: string
+          format: email
+          description: The person's email address
+        document_id:
+          type: string
+          description: The ID of the person's document type
+        num_document:
+          type: string
+          description: The person's document number
+        role_id:
+          type: string
+          description: The ID of the person's role
+
+    DocAndRoleInput:
+      type: object
+      properties:
+        name:
+          type: string
