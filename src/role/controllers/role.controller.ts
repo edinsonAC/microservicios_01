@@ -10,12 +10,22 @@ export class RoleController{
 
     async findAll(_req: Request, res: Response) {
         try {
+            console.log("gola");
             const roles = await this.roleService.findAll();
             (roles?.length === 0)
                 ? this.httpResponse.NotFound(res, `no registered roles yet`)
                 : this.httpResponse.Ok(res, roles);
         } catch (error) {
             this.httpResponse.Error(res, error);
+        }
+    }
+
+    async create(req: Request, res: Response) {
+        try {
+            await this.roleService.create(req.body);
+            this.httpResponse.Created(res, "Role created succesfully")
+        } catch (error) {
+            this.httpResponse.Custom(res, error);
         }
     }
 }
