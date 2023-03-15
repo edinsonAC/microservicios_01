@@ -11,7 +11,13 @@ export class PersonRouter extends BaseRouter<PersonsController, PersonMiddleware
 
     routes(): void {
         this.router.get(
-            "/",
+            "/persons",
             (req, res) => this.controller.findAll(req, res))
+
+        this.router.post(
+            "/person/create",
+            (req, res, next) => this.middleware.validatePerson(req, res, next),
+            (req, res) => this.controller.create(req, res)
+        )
     }
 }
