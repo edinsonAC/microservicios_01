@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID, Length } from "class-validator"
+import { IsEmail, IsNotEmpty, IsString, IsUUID, Length } from "class-validator"
 
 
 export class PersonDTO {
@@ -16,19 +16,19 @@ export class PersonDTO {
     @IsNotEmpty()
     lastnames!: string
 
-    @IsString()
-    @IsNotEmpty()
-    @Length(7, 8)
-    code!: string
+    // @IsString()
+    // @IsNotEmpty()
+    // @Length(7, 8)
+    // code!: string
 
     @IsString()
     @IsNotEmpty()
     @Length(7, 12)
     num_document!:string
 
-    @IsOptional()
-    @IsString()
-    img?: string
+    // @IsOptional()
+    // @IsString()
+    // img?: string
 
     @IsUUID()
     @IsString()
