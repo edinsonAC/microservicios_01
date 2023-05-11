@@ -2,7 +2,7 @@ import { Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from '../../config/base.entity';
 import { PersonEntity } from "../../persons/entity/person.entity";
 
-@Entity({name:"documents"})
+@Entity({name:"document_type"})
 export class DocumentEntity extends BaseEntity{
 
     @Column({

@@ -10,7 +10,6 @@ export class RoleService extends BaseService<RoleEntity>{
 
     async findAll(): Promise<RoleEntity[] | undefined> {
         try {
-            console.log("hola")
             return (await this.execRepository).find()
         } catch (error:any) {
             throw new Error(error)

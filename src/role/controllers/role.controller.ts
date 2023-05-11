@@ -10,7 +10,6 @@ export class RoleController{
 
     async findAll(_req: Request, res: Response) {
         try {
-            console.log("gola");
             const roles = await this.roleService.findAll();
             (roles?.length === 0)
                 ? this.httpResponse.NotFound(res, `no registered roles yet`)

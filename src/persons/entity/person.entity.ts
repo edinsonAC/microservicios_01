@@ -3,45 +3,70 @@ import { BaseEntity } from '../../config/base.entity';
 import { RoleEntity } from '../../role/entity/role.entity';
 import { DocumentEntity } from '../../document_type/entity/document.entity';
 
-@Entity({name:"persons"})
-export class PersonEntity extends BaseEntity{
+@Entity({ name: "person" })
+export class PersonEntity extends BaseEntity {
 
     @Column({
-        type:"varchar",
-        length:30,
-        nullable:false
+        type: "varchar",
+        length: 100,
+        unique: true,
+        nullable: false
     })
-    name!:string
+    institutional_mail!: string
+
+    //* campo nuevo
+    @Column({
+        type: 'varchar',
+        length: 200,
+        nullable: false,
+        select: false
+    })
+    password!: string
 
     @Column({
-        type:"varchar",
-        length:30,
-        nullable:false
+        type: "varchar",
+        length: 30,
+        nullable: false
     })
-    lastnames!:string
+    names!: string
 
     @Column({
-        type:"varchar",
-        nullable:false,
-        length:100,
-        unique:true
+        type: "varchar",
+        length: 30,
+        nullable: false
     })
-    email!:string
+    lastnames!: string
 
     @Column({
-        type:"varchar",
-        length:10,
-        nullable:false,
-        unique:false
+        type: "varchar",
+        length: 8,
+        unique: true,
+        nullable: false
     })
-    num_document!:string
+    code!: string
 
-    @ManyToOne(()=> RoleEntity, (role)=> role.person)
-    @JoinColumn({name:"role_id"})
-    role!:RoleEntity
+    @Column({
+        type: "varchar",
+        length: 10,
+        nullable: false,
+        unique: false
+    })
+    num_document!: string
 
-    @ManyToOne(()=> DocumentEntity, (role)=> role.person)
-    @JoinColumn({name:"document_type_id"})
-    document_type!:DocumentEntity
+    @Column({
+        type: "varchar",
+        length: 255,
+        unique: false,
+        nullable: true
+    })
+    img!: string
+
+    @ManyToOne(() => RoleEntity, (role) => role.person)
+    @JoinColumn({ name: "role_id" })
+    role!: RoleEntity
+
+    @ManyToOne(() => DocumentEntity, (document) => document.person)
+    @JoinColumn({ name: "document_id" })
+    document_type!: DocumentEntity
 
 }

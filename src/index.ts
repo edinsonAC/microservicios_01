@@ -6,6 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import { PersonRouter } from './persons/person.router';
 import { RoleRouter } from './role/role.router';
 import { DocumentRouter } from './document_type/document.router';
+import { AuthRouter } from './auth/auth.service';
 
 
 class Server extends ConfigServer {
@@ -35,7 +36,8 @@ class Server extends ConfigServer {
         return [
             new PersonRouter().router,
             new RoleRouter().router,
-            new DocumentRouter().router
+            new DocumentRouter().router,
+            new AuthRouter().router
         ]
     }
 

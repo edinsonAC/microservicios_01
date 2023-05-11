@@ -43,4 +43,38 @@ export class PersonService extends BaseService<PersonEntity>{
             throw new Error(error)
         }
     }
+
+    async findOneByEmail(institutional_mail: string): Promise<PersonEntity | null> {
+        try {
+            return (await this.execRepository)
+                .createQueryBuilder("person")
+                .addSelect("person.password")
+                .where({ institutional_mail })
+                .getOne()
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
+
+    async findOneBy(term: string): Promise<PersonEntity | null> {
+        try {
+            return (await this.execRepository)
+                .createQueryBuilder("person")
+                .leftJoin("person.role", "role")
+                .leftJoin("person.document_type", "document")
+                .where(
+                    ` 
+                    person.code = :term OR 
+                    person.institutional_mail = :term`,
+                    { term })
+                .select([
+                    "person",
+                    "document.name",
+                    "role.name"
+                ])
+                .getOne()
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 }

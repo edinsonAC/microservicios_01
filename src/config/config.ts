@@ -1,6 +1,9 @@
 import * as dotenv from "dotenv"
 import { DataSource, DataSourceOptions } from "typeorm"
 import swaggerJSDoc from 'swagger-jsdoc';
+import { PersonEntity } from '../persons/entity/person.entity';
+import { RoleEntity } from '../role/entity/role.entity';
+import { DocumentEntity } from '../document_type/entity/document.entity';
 
 
 export abstract class ConfigServer {
@@ -41,8 +44,12 @@ export abstract class ConfigServer {
             username: this.getEnvironment("DB_USER"),
             password: this.getEnvironment("DB_PASSWORD"),
             database: this.getEnvironment("DB_NAME"),
-            entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-            synchronize: true,
+            entities: [
+                PersonEntity,
+                RoleEntity,
+                DocumentEntity
+            ],
+            synchronize: false,
         }
     }
 
