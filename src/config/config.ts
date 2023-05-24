@@ -37,8 +37,6 @@ export abstract class ConfigServer {
     }
 
     public get typeOrmConfig(): DataSourceOptions {
-        console.log("================================");
-        console.log("============== == " ,this.getEnvironment("DB_USER"));
         
         return {
             type: "postgres",
